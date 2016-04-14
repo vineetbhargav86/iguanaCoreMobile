@@ -1,9 +1,27 @@
 <ion-view view-title="Account">
-  <ion-content>
-    <ion-list>
-    <ion-toggle  ng-model="settings.enableFriends">
-        Enable Friends
-    </ion-toggle>
-    </ion-list>
-  </ion-content>
+    <ion-content>
+        <div class="row">
+            <div class="col col-20 text-center">
+                <img src="img/bitcoin.jpeg" class="avatar-wallet"/>
+            </div>
+            <div class="col col-60 text-center">
+                <h2>My Bitcoin Address</h2>
+
+                <img src="http://www.appcoda.com/wp-content/uploads/2013/12/qrcode.jpg" class="account-address"/>
+
+                <p class="p10t">322323234543564656565</p>
+
+                <a href="#">Generate new address</a>
+            </div>
+        </div>
+        <hr>
+        <p class="color-grey">Share this wallet address to receive payments. To protect your privacy new addresses are generated automatically once you see them</p>
+        <div class="row">
+            <div class="col col-50 col-offset-25">
+                <button class="button button-block button-positive button-rounded">
+                    Request A Specific Amount
+                </button>
+            </div>
+        </div>
+    </ion-content>
 </ion-view>

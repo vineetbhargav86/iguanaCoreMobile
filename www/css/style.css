@@ -36,3 +36,140 @@
 
 .transaction-box span.big-btn{ float:left; width:100%; text-align:center; margin-top:-18px;}
 .transaction-box span.big-btn a{ float:none; display:inline-block; background:#3d8af7; border:1px solid #333; border-radius:10px; padding:5px 80px; color:#fff;}
+
+.color-greeni {
+    color: #1abc9c !important;
+}
+
+.color-yellowi {
+    color: yellow !important;
+}
+
+
+.color-alert {
+    color: #ED4A43;
+}
+
+
+.dn {display: none;}
+.dni {display: none !important;}
+.pr {position: relative;}
+.pa {position: absolute;}
+.m0 {margin: 0;}
+.bw{border-bottom: 1px solid #E2E7ED; border-top: 1px solid rgb(233,237,241);}
+.p0i {padding: 0 !important;}
+.db {display: block;}
+.dib {display: inline-block;}
+.size-10 { font-size: 10px; }
+.size-12 { font-size: 12px; }
+.size-14 { font-size: 14px; }
+.size-16 { font-size: 16px; }
+.size-18 { font-size: 18px; }
+.size-21 { font-size: 21px; }
+.size-24 { font-size: 24px; }
+.size-36 { font-size: 36px; }
+.size-42 { font-size: 42px; }
+.size-48 { font-size: 48px; }
+.size-60 { font-size: 60px; }
+.size-72 { font-size: 72px; }
+.m5 {margin: 5px;}
+.m5t {margin-top: 5px;}
+.m8t {margin-top: 8px;}
+.m5b {margin-bottom: 5px;}
+.m5r {margin-right: 5px;}
+.m10 {margin: 10px;}
+.m10b {margin-bottom: 10px;}
+.m10t {margin-top: 10px;}
+.m15b {margin-bottom: 15px;}
+.m15r {margin-right: 15px;}
+.m20b {margin-bottom: 20px;}
+.m30b {margin-bottom: 30px;}
+.m40b {margin-bottom: 40px;}
+.m50b {margin-bottom: 50px;}
+.m10r {margin-right: 10px;}
+.m15l {margin-left: 15px;}
+.m15t {margin-top: 15px;}
+.m20r {margin-right: 20px;}
+.m20t {margin-top: 20px;}
+.m20tp {margin-top: 20%;}
+.m30tp {margin-top: 30%;}
+.m15 {margin: 15px;}
+.p5t {padding-top:5px;}
+.m15h {margin: 0 15px;}
+.p10t {padding-top: 10px;}
+.p10h {padding-right: 10px; padding-left: 10px;}
+.p0r {padding-right: 0;}
+.p70r {padding-right: 70px;}
+.p70l {padding-left: 70px;}
+.p5h {padding: 0 5px;}
+.p20h {padding: 0 20px;}
+.p20v {padding: 20px 0;}
+.p20b {padding-bottom: 20px;}
+.p25b {padding-bottom: 25px;}
+.p25l {padding-left: 25px;}
+.p15 {padding:15px;}
+.p20 {padding:20px;}
+.p20t {padding-top:20px;}
+.p10 {padding:10px;}
+.p10b {padding-bottom:10px;}
+.p45t {padding-top:45px;}
+.p60t {padding-top:60px;}
+.m60t {margin-top:60px;}
+.p45li {padding-left: 45px !important;}
+.m30v {margin: 30px 0;}
+.m10h {margin:0 10px;}
+.m10v {margin:10px 0;}
+.m20v {margin:20px 0;}
+.m30a {margin: 30px auto;}
+.m-negative-l {margin-left: -0.9375rem;}
+.br100 {border-radius: 100% !important;}
+.lh {line-height: 0;}
+.lh140 {line-height: 140%;}
+.oh {overflow:hidden;background-color:#FFF;}
+.vm {vertical-align: middle;}
+.vt {vertical-align: top;}
+.ma { margin: 0 auto;}
+.tu {text-transform: uppercase;}
+
+.line {
+    border-top: 1px solid #F8F8FB;
+    margin: 0.7rem 0;
+}
+
+.line-white {
+    border-top: 1px solid #fff;
+    margin: 0.7rem 0;
+}
+
+.line-t {
+    border-top: 1px solid #E9E9EC;
+}
+
+.line-b {
+    border-bottom: 1px solid #E9E9EC;
+}
+
+.color-grey {
+    color: gray;
+}
+
+.name-wallet span {
+    line-height: 45px;
+}
+
+.avatar-wallet {
+    width: 75px;
+    height: 75px;
+    background-image: url('../img/bitcoin.jpeg');
+    background-size: contain;
+}
+
+.account-address {
+    width: 50%;
+}
+
+.button.button-rounded {
+    -webkit-border-radius: 23px;
+    -moz-border-radius: 23px;
+    border-radius: 23px;;
+}
