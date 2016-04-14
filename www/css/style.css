@@ -1,5 +1,5 @@
 /* Empty. Add your own CSS if you like */
-.tabs .tab-item .icon.send {
+ .icon .send {
   background-repeat: no-repeat;
   background-position: 50%;
   height: 65%;
@@ -12,6 +12,15 @@
   height: 65%;
   background-image: url('../img/icon2.png');
   background-size:contain;
+}
+
+.item .dark  {
+  background-color: #3f4041;
+  border: none;
+  border-top: 1px solid #464646;
+  border-bottom: 2px solid #333333;
+  padding: 20px;
+  max-height: none;
 }
 .transaction-box { float: left; width: 100%;}
 .transaction-box ul.transaction-list{ float:left; width:100%; margin: 50px 0 0; list-style:none; border:1px solid #333; min-height:250px;height: 0px;overflow-y: scroll;}
