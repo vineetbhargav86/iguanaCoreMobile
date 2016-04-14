@@ -1,16 +1,221 @@
-<ion-view view-title="Chats">
-  <ion-content>
-    <ion-list>
-      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="chat in chats" type="item-text-wrap" href="#/tab/chats/{{chat.id}}">
-        <img ng-src="{{chat.face}}">
-        <h2>{{chat.name}}</h2>
-        <p>{{chat.lastText}}</p>
-        <i class="icon ion-chevron-right icon-accessory"></i>
+<ion-view>
+  <ion-content ng-controller="walletHomeController as home">
+    <div class="row m20t">
+        <div class="large-12 large-centered columns">
+          <h3>From: <a ng-click="home.goWallet()">{{ index.btc_addr }}</a> <span clss="close"><a ng-click="home.goHome()"><img src="img/close.png"></a></span></h3>
+          <form name="sendForm" ng-submit="home.submitForm()" ng-disabled="home.blockUx || home.onGoingProcess" novalidate>
 
-        <ion-option-button class="button-assertive" ng-click="remove(chat)">
-          Delete
-        </ion-option-button>
-      </ion-item>
-    </ion-list>
+            <div ng-hide="home._paypro || home.hideAddress">
+              <div class="row collapse">
+                <label for="address" class="left" >
+                  <span translate>To</span>
+                </label>
+                <span ng-hide="sendForm.address.$pristine">
+                  <span class="has-error right size-12" ng-show="sendForm.address.$invalid && _address">
+                    <i class="icon-close-circle size-14"></i>
+                    <span class="vm" translate>Not valid</span>
+                  </span>
+                  <small class="right text-primary" ng-show="!sendForm.address.$invalid">
+                    <i class="icon-checkmark-circle size-14"></i>
+                  </small>
+                </span>
+              </div>
+
+              <div class="input">
+                <input ng-show="sendForm.address.$invalid" class="m0" type="text" id="address" name="address" ng-disabled="home.blockUx || home.lockAddress" ng-attr-placeholder="{{'Bitcoin address'|translate}}" ng-model="_address" valid-address required ng-focus="home.formFocus('address')" ng-blur="home.formFocus(false)">
+                <div class="addressbook-input" ng-show="!sendForm.address.$invalid && _address">
+                  {{index.addressbook[_address] || _address}}
+                </div>
+                <a class="postfix size-12 m0 text-gray"
+                ng-style="{'color':app_config.colorFor}"
+                ng-click="home.openDestinationAddressModal(index.otherWallets, _address)">
+                  <i class="icon-wallet text-bold size-18"></i>
+                </a>
+              </div>
+            </div>
+            <div ng-show="home._paypro && !home.hideAddress">
+              <div class="row collapse" ng-click="home.openPPModal(home._paypro)">
+
+                <label for="domain">
+                  <span translate>Payment to</span>
+                </label>
+
+                <div class="input block">
+                  <input class="p45li" type="text" id="domain" name="domain" ng-model="home._paypro.domain" ng-disabled="1">
+                  <i ng-show="home._paypro.verified && home._paypro.caTrusted" class="fi-lock color-greeni"></i>
+                  <i ng-show="!home._paypro.caTrusted" class="fi-unlock color-yellowi"></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="row" ng-init="home.hideAlternative()" ng-hide="home.hideAmount">
+              <div class="large-12 medium-12 columns">
+                <div class="right" ng-hide="sendForm.amount.$pristine && !sendForm.amount.$modelValue ">
+                  <span class="has-error right size-12" ng-if="sendForm.amount.$invalid">
+                    <i class="icon-close-circle size-14"></i>
+                    <span clas="vm" translate>Not valid</span>
+                  </span>
+                  <small class="text-primary right" ng-if="!sendForm.amount.$invalid && !sendForm.alternative.$invalid">
+                    <i class="icon-checkmark-circle size-14"></i>
+                  </small>
+                </div>
+                <div ng-if="!home.canShowAlternative()">
+                  <label for="amount">
+                    <span translate>Amount</span>
+                  </label>
+                  <div class="input">
+                    <input type="number" id="amount" ng-disabled="home.blockUx || home.lockAmount" name="amount" ng-attr-placeholder="{{'Amount in'|translate}} {{home.unitName}}" ng-minlength="0.00000001" ng-maxlength="10000000000" ng-model="_amount" valid-amount required autocomplete="off" ng-focus="home.formFocus('amount')" ng-blur="home.formFocus(false)">
+                    <input type="number" id="alternative"  name="alternative"  ng-model="_alternative" style="display:none">
+                    <a class="postfix button" ng-style="{'background-color':app_config.colorFor}" ng-click="home.showAlternative()">{{home.unitName}}</a>
+                  </div>
+                </div>
+                <div ng-if="home.canShowAlternative()">
+                  <label for="alternative"><span translate>Amount</span> [{{ home.alternativeIsoCode }}]
+                  </label>
+                  <div class="input">
+                    <input type="number" id="alternative" ng-disabled="home.blockUx || !home.isRateAvailable || home.lockAmount" name="alternative" ng-attr-placeholder="{{'Amount in'|translate}} {{ home.alternativeName }}" ng-model="_alternative" required autocomplete="off" ng-focus="home.formFocus('amount')" ng-blur="home.formFocus(false)">
+                    <input type="number" id="amount" name="amount" ng-model="_amount" style="display:none">
+                    <a class="postfix button black" ng-click="home.hideAlternative()"> {{ home.alternativeIsoCode }}</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row" ng-hide="home.hideNote">
+              <div class="large-12 columns">
+                <label for="comment"><span translate>Note</span>
+                  <small translate ng-hide="!sendForm.comment.$pristine">optional</small>
+                  <small translate class="has-error" ng-show="sendForm.comment.$invalid && !sendForm.comment.$pristine">too long!</small>
+                </label>
+                <div class="input">
+                  <textarea id="comment" ng-disabled="home.blockUx" name="comment"
+                    ng-maxlength="500" ng-model="_comment" ng-focus="home.formFocus('msg')"
+                    ng-blur="home.formFocus(false)"></textarea>
+                </div>
+              </div>
+            </div>
+
+            <div class="row" ng-show="!home.onGoingProcess">
+              <div class="large-6 medium-6 small-6 columns" ng-show="!home.blockUx && (home._paypro || home.lockAddress || home.lockAmount)">
+                <a ng-click="home.resetForm(sendForm)" class="button expand outline dark-gray round" translate>Cancel</a>
+              </div>
+              <div class="columns" ng-class="{'small-6 medium-6 large-6':(home._paypro || home.lockAddress || home.lockAmount)}">
+                <button type="submit" class="button black round expand" ng-disabled="sendForm.$invalid || home.blockUx ||  index.isOffline"
+                  ng-style="{'background-color':app_config.colorFor}"  translate>
+                  Send
+                </button>
+              </div>
+
+            </div>
+          </form>
+        </div>
+      </div><div class="row m20t">
+        <div class="large-12 large-centered columns">
+          <h3>From: <a ng-click="home.goWallet()">{{ index.btc_addr }}</a> <span clss="close"><a ng-click="home.goHome()"><img src="img/close.png"></a></span></h3>
+          <form name="sendForm" ng-submit="home.submitForm()" ng-disabled="home.blockUx || home.onGoingProcess" novalidate>
+
+            <div ng-hide="home._paypro || home.hideAddress">
+              <div class="row collapse">
+                <label for="address" class="left" >
+                  <span translate>To</span>
+                </label>
+                <span ng-hide="sendForm.address.$pristine">
+                  <span class="has-error right size-12" ng-show="sendForm.address.$invalid && _address">
+                    <i class="icon-close-circle size-14"></i>
+                    <span class="vm" translate>Not valid</span>
+                  </span>
+                  <small class="right text-primary" ng-show="!sendForm.address.$invalid">
+                    <i class="icon-checkmark-circle size-14"></i>
+                  </small>
+                </span>
+              </div>
+
+              <div class="input">
+                <input ng-show="sendForm.address.$invalid" class="m0" type="text" id="address" name="address" ng-disabled="home.blockUx || home.lockAddress" ng-attr-placeholder="{{'Bitcoin address'|translate}}" ng-model="_address" valid-address required ng-focus="home.formFocus('address')" ng-blur="home.formFocus(false)">
+                <div class="addressbook-input" ng-show="!sendForm.address.$invalid && _address">
+                  {{index.addressbook[_address] || _address}}
+                </div>
+                <a class="postfix size-12 m0 text-gray"
+                ng-style="{'color':app_config.colorFor}"
+                ng-click="home.openDestinationAddressModal(index.otherWallets, _address)">
+                  <i class="icon-wallet text-bold size-18"></i>
+                </a>
+              </div>
+            </div>
+            <div ng-show="home._paypro && !home.hideAddress">
+              <div class="row collapse" ng-click="home.openPPModal(home._paypro)">
+
+                <label for="domain">
+                  <span translate>Payment to</span>
+                </label>
+
+                <div class="input block">
+                  <input class="p45li" type="text" id="domain" name="domain" ng-model="home._paypro.domain" ng-disabled="1">
+                  <i ng-show="home._paypro.verified && home._paypro.caTrusted" class="fi-lock color-greeni"></i>
+                  <i ng-show="!home._paypro.caTrusted" class="fi-unlock color-yellowi"></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="row" ng-init="home.hideAlternative()" ng-hide="home.hideAmount">
+              <div class="large-12 medium-12 columns">
+                <div class="right" ng-hide="sendForm.amount.$pristine && !sendForm.amount.$modelValue ">
+                  <span class="has-error right size-12" ng-if="sendForm.amount.$invalid">
+                    <i class="icon-close-circle size-14"></i>
+                    <span clas="vm" translate>Not valid</span>
+                  </span>
+                  <small class="text-primary right" ng-if="!sendForm.amount.$invalid && !sendForm.alternative.$invalid">
+                    <i class="icon-checkmark-circle size-14"></i>
+                  </small>
+                </div>
+                <div ng-if="!home.canShowAlternative()">
+                  <label for="amount">
+                    <span translate>Amount</span>
+                  </label>
+                  <div class="input">
+                    <input type="number" id="amount" ng-disabled="home.blockUx || home.lockAmount" name="amount" ng-attr-placeholder="{{'Amount in'|translate}} {{home.unitName}}" ng-minlength="0.00000001" ng-maxlength="10000000000" ng-model="_amount" valid-amount required autocomplete="off" ng-focus="home.formFocus('amount')" ng-blur="home.formFocus(false)">
+                    <input type="number" id="alternative"  name="alternative"  ng-model="_alternative" style="display:none">
+                    <a class="postfix button" ng-style="{'background-color':app_config.colorFor}" ng-click="home.showAlternative()">{{home.unitName}}</a>
+                  </div>
+                </div>
+                <div ng-if="home.canShowAlternative()">
+                  <label for="alternative"><span translate>Amount</span> [{{ home.alternativeIsoCode }}]
+                  </label>
+                  <div class="input">
+                    <input type="number" id="alternative" ng-disabled="home.blockUx || !home.isRateAvailable || home.lockAmount" name="alternative" ng-attr-placeholder="{{'Amount in'|translate}} {{ home.alternativeName }}" ng-model="_alternative" required autocomplete="off" ng-focus="home.formFocus('amount')" ng-blur="home.formFocus(false)">
+                    <input type="number" id="amount" name="amount" ng-model="_amount" style="display:none">
+                    <a class="postfix button black" ng-click="home.hideAlternative()"> {{ home.alternativeIsoCode }}</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row" ng-hide="home.hideNote">
+              <div class="large-12 columns">
+                <label for="comment"><span translate>Note</span>
+                  <small translate ng-hide="!sendForm.comment.$pristine">optional</small>
+                  <small translate class="has-error" ng-show="sendForm.comment.$invalid && !sendForm.comment.$pristine">too long!</small>
+                </label>
+                <div class="input">
+                  <textarea id="comment" ng-disabled="home.blockUx" name="comment"
+                    ng-maxlength="500" ng-model="_comment" ng-focus="home.formFocus('msg')"
+                    ng-blur="home.formFocus(false)"></textarea>
+                </div>
+              </div>
+            </div>
+
+            <div class="row" ng-show="!home.onGoingProcess">
+              <div class="large-6 medium-6 small-6 columns" ng-show="!home.blockUx && (home._paypro || home.lockAddress || home.lockAmount)">
+                <a ng-click="home.resetForm(sendForm)" class="button expand outline dark-gray round" translate>Cancel</a>
+              </div>
+              <div class="columns" ng-class="{'small-6 medium-6 large-6':(home._paypro || home.lockAddress || home.lockAmount)}">
+                <button type="submit" class="button black round expand" ng-disabled="sendForm.$invalid || home.blockUx ||  index.isOffline"
+                  ng-style="{'background-color':app_config.colorFor}"  translate>
+                  Send
+                </button>
+              </div>
+
+            </div>
+          </form>
+        </div>
+      </div>
   </ion-content>
 </ion-view>
