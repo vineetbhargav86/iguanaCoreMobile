@@ -2,6 +2,10 @@
   "name": "HelloIonic",
   "private": "true",
   "devDependencies": {
-    "ionic": "driftyco/ionic-bower#1.2.4"
+    "ionic": "driftyco/ionic-bower#1.2.4",
+    "BarcodeScanner": "https://github.com/wildabeast/BarcodeScanner.git#~2.2.0"
+  },
+  "dependencies": {
+    "ngCordova": "^0.1.26-alpha"
   }
 }
