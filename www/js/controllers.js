@@ -29,4 +29,14 @@ angular.module('starter.controllers', [])
 
 .controller('ActivityCtrl', function($scope) {
 
-});
+})
+
+.controller('TopHeader', function($scope, CommonService) {
+$scope.showQRscanner=function(){
+
+  CommonService.scanQR();
+
+};
+})
+
+;

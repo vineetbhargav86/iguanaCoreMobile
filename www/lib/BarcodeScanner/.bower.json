@@ -1,0 +1,14 @@
+{
+  "name": "BarcodeScanner",
+  "homepage": "https://github.com/wildabeast/BarcodeScanner",
+  "version": "2.2.0",
+  "_release": "2.2.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "2.2.0",
+    "commit": "08adaab336f9ab162dee66b42b5cc5d7e2068f92"
+  },
+  "_source": "https://github.com/wildabeast/BarcodeScanner.git",
+  "_target": "~2.2.0",
+  "_originalSource": "https://github.com/wildabeast/BarcodeScanner.git"
+}
