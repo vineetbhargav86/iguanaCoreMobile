@@ -50,7 +50,8 @@
     color: #ED4A43;
 }
 
-
+.fr {float:right}
+.fl {float:left}
 .dn {display: none;}
 .dni {display: none !important;}
 .pr {position: relative;}
@@ -158,14 +159,14 @@
 }
 
 .avatar-wallet {
-    width: 75px;
-    height: 75px;
+    width: 40px;
+    height: 40px;
     background-image: url('../img/bitcoin.jpeg');
     background-size: contain;
 }
 
 .account-address {
-    width: 50%;
+    width: 70%;
 }
 
 .button.button-rounded {
