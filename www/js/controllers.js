@@ -38,5 +38,8 @@ $scope.showQRscanner=function(){
 
 };
 })
-
-;
+.controller('MenuCtrl', function($scope, $ionicSideMenuDelegate) {
+  $scope.toggleLeftSideMenu = function() {
+      $ionicSideMenuDelegate.toggleLeft();
+    };
+});
