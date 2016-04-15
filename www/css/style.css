@@ -190,3 +190,20 @@
     top: 38px;
     left: 24px;
 }
+
+.tab-nav.tabs a:nth-child(5).tab-item-active{
+  border: 1.25px solid black;
+    max-width: 95px;
+    height: 90px;
+    margin-top: -41px;
+    -moz-border-radius: 50px;
+	-webkit-border-radius: 50px;
+    border-radius: 50px;
+    position: relative;
+}
+
+.tab-nav.tabs a:nth-child(5).tab-item-active span {
+      position: absolute;
+    top: 38px;
+    left: 24px;
+}
